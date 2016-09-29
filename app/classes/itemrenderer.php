@@ -147,10 +147,22 @@ class ItemRenderer {
 		$obj->image = $this->getItemImage($item);
 		$obj->link = $this->getItemLink($item);
 
+		if($this->model('api.include_custom_fields.enabled') === true)
+			$this->addCustomFieldsToObject($obj, $item);
+
 		echo json_encode($obj, JSON_FORCE_OBJECT);
 	}
 
+	private function addCustomFieldsToObject(&$obj, $item){
 
+		$customFields = $this->model('itemstore')->getItemCustomFields($item->id);
+		foreach($customFields as $fieldId => $value){
+			$fieldName = $this->model('customfieldstore')->find($fieldId)->name;
+			$obj->$fieldName = $value;
+		}
+	}
+	
+	
 
 	public function renderAsRdf($item) {
 		// @todo : renderAsRdf()
