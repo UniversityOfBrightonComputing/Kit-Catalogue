@@ -267,7 +267,9 @@ $config['api.private.enabled'] = false;
 // Forces all API calls to go via HTTPS, and therefore be encrypted.
 $config['api.use_https_only'] = false;
 
-
+// Adds all custom fields to the API calls for item and items
+// NOTE: custom fields with the same name as standard fields will overwrite the values returned by the API. 
+$config['api.include_custom_fields.enabled'] = false;
 
 /*
  * Data Licensing and Settings
